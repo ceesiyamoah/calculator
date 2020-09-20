@@ -1,3 +1,54 @@
-body {
+.root {
+	display: flex;
+	flex-direction: column;
+	width: 30%;
+	height: 600px;
+}
+
+.row {
+	display: flex;
+	flex-direction: row;
 	background-color: red;
+	border-top: 5px solid black;
+	border-right: 5px solid black;
+	border-left: 5px solid black;
+	text-align: center;
+	flex: 1;
+	padding: 0;
+	font-size: 60px;
+}
+.row.display {
+	background-color: blue;
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+
+	color: white;
+}
+.row.clear {
+	background-color: yellow;
+	padding: 0px;
+}
+.row.numbers {
+}
+.row.zero {
+	background-color: violet;
+	border-bottom: 5px solid black;
+}
+.cell {
+	background-color: green;
+	border: 1px solid black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 1;
+}
+.cell.clear {
+	flex: 2;
+}
+.cell.backspace {
+	flex: 1;
+}
+.cell.operator {
+	flex: 1;
 }
