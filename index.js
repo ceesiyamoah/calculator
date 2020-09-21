@@ -19,6 +19,45 @@ const displayZero = () =>
     display.innerHTML = '0'
 }
 
+//*Function to check if the display is zero
+const isZero = (content) =>
+{
+    return content.innerHTML === '0'
+}
+
+
+//* separating input into left and right operands
+const getOperands = (expression, operatorIndex) =>
+{
+    let OperandLeft, OperandRight
+    OperandLeft = parseInt(expression.slice(0, operatorIndex))
+    OperandRight = parseInt(expression.slice(operatorIndex + 1, expression.length))
+    return [OperandLeft, OperandRight]
+}
+
+
+//* Calculating the value based on the numbers and operators selected
+const calculate = (content) =>
+{
+    if (content.includes('÷')) {
+        let [OperandLeft, OperandRight] = getOperands(content, content.indexOf('÷'))
+        return OperandLeft / OperandRight
+    }
+    if (content.includes('+')) {
+        let [OperandLeft, OperandRight] = getOperands(content, content.indexOf('+'))
+        return OperandLeft + OperandRight
+    }
+    if (content.includes('-')) {
+        let [OperandLeft, OperandRight] = getOperands(content, content.indexOf('-'))
+        return OperandLeft - OperandRight
+    }
+    if (content.includes('x')) {
+        let [OperandLeft, OperandRight] = getOperands(content, content.indexOf('x'))
+        return OperandLeft * OperandRight
+    }
+
+
+}
 
 //*Backspace implementation
 backspace.addEventListener('click', () =>
@@ -32,7 +71,10 @@ backspace.addEventListener('click', () =>
 //TODO: finish up
 equal.addEventListener('click', () =>
 {
-
+    if (!isZero(display.innerHTML)) {
+        result = calculate(display.innerHTML)
+        display.innerHTML = result
+    }
 })
 
 
@@ -58,13 +100,24 @@ clear.addEventListener('click', () =>
 })
 
 
-//*making operators (= not included) interactive
+//*making operators (equal not included) interactive
 operators.forEach(operator =>
 {
     operator.addEventListener('click', () =>
     {
-        //TODO implement algorithm
-        displayZero()
+
+        if (!isZero(display)) {
+
+            if (
+                !(display.innerHTML.includes('÷') ||
+                    display.innerHTML.includes('+') ||
+                    display.innerHTML.includes('-') ||
+                    display.innerHTML.includes('x'))
+            ) {
+                display.innerHTML += operator.innerHTML
+            }
+        }
+
     }
     )
 });
